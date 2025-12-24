@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Nhập mật khẩu Giáng Sinh</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Font Giáng Sinh -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at top, #0b3d2e, #041f18);
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Tuyết rơi nhiều lớp */
+        body::before,
+        body::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(2px 2px at 20px 30px, white, transparent),
+                radial-gradient(3px 3px at 40px 70px, white, transparent),
+                radial-gradient(2px 2px at 90px 40px, white, transparent),
+                radial-gradient(3px 3px at 130px 80px, white, transparent),
+                radial-gradient(2px 2px at 160px 20px, white, transparent),
+                radial-gradient(2px 2px at 200px 60px, white, transparent);
+            background-size: 180px 120px;
+            animation: snow 6s linear infinite;
+            opacity: 0.7;
+        }
+
+        body::after {
+            animation-duration: 10s;
+            opacity: 0.4;
+        }
+
+        @keyframes snow {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 0 450px;
+            }
+        }
+
+        /* Sao bay (emoji) */
+        .star {
+            font-size: 28px;
+            position: absolute;
+            top: 8%;
+            animation: starFly 10s linear infinite;
+            z-index: 3;
+        }
+
+        /* Ông già Noel bay (emoji) */
+        .santa-fly {
+            position: absolute;
+            top: 14%;
+            font-size: 48px;
+            animation: santaFly 14s linear infinite;
+            z-index: 3;
+        }
+
+        /* Cây thông (emoji) */
+        .tree {
+            position: absolute;
+            bottom: 0;
+            font-size: 120px;
+            pointer-events: none;
+            opacity: 0.95;
+            z-index: 2;
+            filter: drop-shadow(0 0 12px lime);
+        }
+
+        .tree.left {
+            left: 10px;
+        }
+
+        .tree.right {
+            right: 10px;
+            transform: scaleX(-1);
+        }
+
+        .tree.small {
+            font-size: 80px;
+            bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .tree.s1 {
+            left: 160px;
+        }
+
+        .tree.s2 {
+            right: 160px;
+        }
+
+        /* Hộp quà (emoji) */
+        .gift {
+            position: absolute;
+            bottom: 10px;
+            font-size: 70px;
+            animation: giftBounce 1.8s ease-in-out infinite;
+            z-index: 2;
+        }
+
+        .gift.left {
+            left: 90px;
+        }
+
+        .gift.right {
+            right: 90px;
+        }
+
+        .gift.mid {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .gift {
+            position: absolute;
+            bottom: 10px;
+            width: 90px;
+            animation: giftBounce 2s ease-in-out infinite;
+        }
+
+        .gift.left {
+            left: 120px;
+        }
+
+        .gift.right {
+            right: 120px;
+        }
+
+        .gift.mid {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        @keyframes giftBounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        /* Khung chính + đèn nhấp nháy */
+        .lock-screen {
+            position: relative;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            background: linear-gradient(135deg, #b30000, #ff4d4d);
+            padding: 26px;
+            border-radius: 26px;
+            width: 460px;
+            box-shadow: 0 0 25px gold, 0 15px 40px rgba(0, 0, 0, 0.4);
+            z-index: 4;
+            animation: lights 1.5s infinite alternate;
+        }
+
+        @keyframes lights {
+            0% {
+                box-shadow: 0 0 10px gold;
+            }
+
+            100% {
+                box-shadow: 0 0 35px lime;
+            }
+        }
+
+        /* Rung khi sai */
+        .shake {
+            animation: shake 0.4s;
+        }
+
+        @keyframes shake {
+            0% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-6px);
+            }
+
+            50% {
+                transform: translateX(6px);
+            }
+
+            75% {
+                transform: translateX(-6px);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        /* Ảnh bên trái */
+        .left-panel {
+            width: 135px;
+            text-align: center;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 4px solid #ffd700;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 1);
+            background: #fff;
+            margin-bottom: 10px;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .santa-text {
+            font-family: 'Mountains of Christmas', cursive;
+            color: #fff;
+            font-size: 22px;
+            text-shadow: 0 0 12px #ffd700;
+        }
+
+        /* Bên phải */
+        .right-panel {
+            flex: 1;
+            text-align: center;
+        }
+
+        h2 {
+            margin: 5px 0 15px;
+            font-size: 24px;
+            font-family: 'Mountains of Christmas', cursive;
+            color: #fff;
+            text-shadow: 0 0 12px gold;
+        }
+
+        .password-display {
+            width: 100%;
+            height: 42px;
+            border-radius: 12px;
+            border: none;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 20px;
+            letter-spacing: 6px;
+            background: #fff5e6;
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .keypad button {
+            height: 48px;
+            border: none;
+            border-radius: 14px;
+            font-size: 18px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #ffffff, #ffe6e6);
+            transition: 0.12s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+            font-weight: bold;
+        }
+
+        .keypad button:hover {
+            transform: scale(1.08);
+            background: linear-gradient(135deg, #fff, #fff3b0);
+            box-shadow: 0 0 12px gold;
+        }
+
+        .btn-clear {
+            background: linear-gradient(135deg, #8e0e00, #e52d27);
+            color: red;
+        }
+
+        .btn-ok {
+            background: linear-gradient(135deg, #0f9b0f, #00ff87);
+            color: green;
+        }
+
+        .error {
+            color: #fff;
+            font-size: 14px;
+            margin-top: 8px;
+            height: 18px;
+            text-shadow: 0 0 8px red;
+        }
+
+        /* Nút bật nhạc */
+        .music-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: gold;
+            border: none;
+            border-radius: 50px;
+            padding: 6px 14px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 10px gold;
+            z-index: 10;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Ghi chú: Nếu mạng chặn imgur, hệ thống sẽ tự hiện emoji 🎄🎁 thay thế -->
+
+    <!-- Nhạc Noel -->
+    <audio id="music" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-christmas-happy-786.mp3" type="audio/mpeg">
+    </audio>
+    <button class="music-btn" onclick="toggleMusic()">♪ Nhạc</button>
+
+
+    <!-- Cây thông & quà (emoji, không bị lỗi nguồn) -->
+    <div class="tree left">🎄</div>
+    <div class="tree right">🎄</div>
+    <div class="tree small s1">🎄</div>
+    <div class="tree small s2">🎄</div>
+
+    <div class="gift left">🎁</div>
+    <div class="gift right">🎁</div>
+
+
+    <div class="lock-screen" id="lock">
+
+        <!-- BÊN TRÁI -->
+        <div class="left-panel">
+            <div class="avatar">
+                <img src="https://tiki.vn/blog/wp-content/uploads/2023/10/ong-gia-noel-khong-co-ngoai-doi-thuc-1024x819.jpg"
+                    alt="Avatar">
+            </div>
+            <div class="santa-text">Merry Christmas</div>
+        </div>
+
+        <!-- BÊN PHẢI -->
+        <div class="right-panel">
+            <h2>Nhập mật khẩu</h2>
+            <input type="password" id="password" class="password-display" disabled />
+
+            <div class="keypad">
+                <button onclick="addNumber(1)">1</button>
+                <button onclick="addNumber(2)">2</button>
+                <button onclick="addNumber(3)">3</button>
+                <button onclick="addNumber(4)">4</button>
+                <button onclick="addNumber(5)">5</button>
+                <button onclick="addNumber(6)">6</button>
+                <button onclick="addNumber(7)">7</button>
+                <button onclick="addNumber(8)">8</button>
+                <button onclick="addNumber(9)">9</button>
+                <button class="btn-clear" onclick="clearPass()">X</button>
+                <button onclick="addNumber(0)">0</button>
+                <button class="btn-ok" onclick="checkPass()">✓</button>
+            </div>
+
+            <div id="error" class="error"></div>
+        </div>
+    </div>
+
+    <script>
+        const CORRECT_PASSWORD = "070605"; // ✅ ĐỔI MẬT KHẨU Ở ĐÂY
+        const REDIRECT_URL = "index1.html"; // ✅ ĐỔI LINK CẦN CHUYỂN
+
+        const input = document.getElementById("password");
+        const errorText = document.getElementById("error");
+        const lock = document.getElementById("lock");
+        const music = document.getElementById("music");
+
+        function addNumber(num) {
+            if (input.value.length < 10) {
+                input.value += num;
+            }
+        }
+
+        function clearPass() {
+            input.value = "";
+            errorText.textContent = "";
+        }
+
+        function checkPass() {
+            if (input.value === CORRECT_PASSWORD) {
+                window.location.href = REDIRECT_URL;
+            } else {
+                errorText.textContent = "Sai mật khẩu!";
+                input.value = "";
+                lock.classList.add("shake");
+                setTimeout(() => lock.classList.remove("shake"), 400);
+            }
+        }
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+            } else {
+                music.pause();
+            }
+        }
+    </script>
+
+</body>
+
+</html>
